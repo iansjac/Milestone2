@@ -8,6 +8,13 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+var home = require('./routes/home');
+var friendList = require('./routes/friend-list');
+var profile = require('./routes/profile');
+var requests = require('./routes/requests');
+var user = require('./routes/user');
+
+
 var app = express();
 
 // view engine setup
@@ -24,6 +31,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+
+app.use('/home', home);
+app.use('/user', user);
+app.use('/friend-list', friendList);
+app.use('/profile', profile);
+app.use('/requests', requests);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
