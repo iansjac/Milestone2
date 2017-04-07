@@ -13,7 +13,7 @@ var friendList = require('./routes/friendListRouter');
 var profile = require('./routes/profileRouter');
 var requests = require('./routes/requestsRouter');
 var user = require('./routes/userRouter');
-
+var config = require('./config');
 var app = express();
 
 var mongoose = require('mongoose'),
@@ -22,14 +22,14 @@ assert = require('assert');
 console.log("Connected correctly to database")
 
 // Connection URL
-var url = 'mongodb://localhost:27017/thinder';
+var url = config.database;
 mongoose.connect(url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
 	// we're connected!
 	console.log("Database connection established");
-	db.dropDatabase();
+	//db.dropDatabase();
 });
 
 

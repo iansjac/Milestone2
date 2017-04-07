@@ -3,6 +3,7 @@ var express = require('express');
 var userRouter = express.Router(); //create a router object
 var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
+var config = require('../config');
 
 /** 1- declare mongoose **/
 var mongoose = require('mongoose');
@@ -12,30 +13,68 @@ userRouter.use(bodyParser.json());
 //LOG IN
 userRouter.route('/log-in') // a second router is define using parameters.
 .get(function (req, res, next) {
-	/**TO-DO**/
-	console.log("log in")
-	
-	res.render('index', {
-		title: 'Log In'
+	// create a sample user
+	var troy = new users({
+			username: 'troy01',
+			password: 'password',
+			phone_number: "7746331187",
+			name: "Troy Ingel",
+			email: "Troy@qu.com"
+		});
+
+	// save the sample user
+	troy.save(function (err) {
+		if (err)
+			throw err;
+
+		console.log('User saved successfully');
+		res.json({
+			success: true
+		});
 	});
 })
 .post(function (req, res, next) {
-	/**TO-DO**/
-	users.create(req.body, function (err, user) {
-		if (err)
-			throw err; //propagate error
+// find the user
+users.findOne({
+	username: req.body.username
+}, function (err, user) {
 
-		console.log('user created');
+	if (err)
+		throw err;
 
-		var id = user._id
-			res.writeHead(200, {
-				'Content-Type': 'text-plain'
-			}); //send reply back to the client with emoji id
-		res.end('User added!' + '<br>Username: ' + user.username + '<br>Password: ' + user.password + '<br>Name: ' + user.name + '<br>Phone Number: ' + user.phone_number + '<br>Email: ' + user.email);
+	if (!user) {
+		res.json({
+			success: false,
+			message: 'Authentication failed. User not found.'
+		});
+	} else if (user) {
 
-	});
+		// check if password matches
+		if (user.password != req.body.password) {
+			res.json({
+				success: false,
+				message: 'Authentication failed. Wrong password.'
+			});
+		} else {
+
+			// if user is found and password is right
+			// create a token
+			var token = jwt.sign(user, config.secret, {
+					expiresIn: 60 // expires in 24 hours
+				});
+
+			// return the information including token as JSON
+			res.json({
+				success: true,
+				message: 'Enjoy your token!',
+				token: token
+			});
+		}
+
+	}
+
 });
-
+});
 //VIEW TRANSACTION
 userRouter.route('/:userId/requests/:transactionId')
 .get(function (req, res, next) {
