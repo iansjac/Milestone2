@@ -5,18 +5,30 @@ var bodyParser = require('body-parser');
 
 /** 1- declare mongoose **/
 var mongoose = require('mongoose');
+var users = require('../models/user');
 
 profileRouter.use(bodyParser.json());
 
 //PROFILE
-profileRouter.route('/') // a second router is define using parameters.
+profileRouter.route('/') 
 .get(function (req, res, next) {
-	/**TO-DO**/
+	users.find({}, function(err, user){  
+		   if (err) throw err; 
+		   res.json(user); 
+	   });
 	console.log("profile")
 	res.render('index', { title: 'Profile' });
 })
 .put(function (req, res, next) {
-	/**TO-DO**/
+		users.findByIdAndUpdate(req.params.userId, {
+		      $set:req.body 
+		   },{
+			   new: true
+		   }, function (err, user){
+				if (err) throw err; 
+				res.json(user);
+		   
+	});
 	
 });
 
