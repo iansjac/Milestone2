@@ -25,54 +25,42 @@ router.route('/home')
 
 });
 
-
 //PROFILE - done
 router.route('/profile')
 .get(function (req, res, next) {
 	if (isLoggedIn(req, res)) {
-		requests.find({
-			username: req.user.username,
-            email: req.user.email,
-            phone_number: req.user.phone_number,
-            first_name: req.user.first_name,
-            last_name: req.user.last_name
-		}, function (err, freq) {
-			if (err)
-				throw err;
-			res.json(freq);
-		});
+
+		res.json(req.user);
+
 	} else {
 		res.redirect("/home")
 	}
 
 });
-
-router.route('/profile/:profileId').put(function (req, res, next) {
+//done
+router.route('/profile').put(function (req, res, next) {
 	if (isLoggedIn(req, res)) {
-		profile.findByIdAndUpdate(req.params.profileId, {
-			$set: req.body 
+		users.findByIdAndUpdate(req.user._id, {
+			$set: req.body
 		}, {
 			new: true
 		}, function (err, freq) {
 			if (err)
-				throw err; 
-			} else {
-				res.render('index', {
-					title: 'Profile!'
-				});
-			} else {
+				throw err;
+			res.json(freq);
+		})
+	} else {
 		res.redirect("/home")
-	   }
-    )};
+	}
 });
 
 //FRIENDS LIST - done
 router.route('/friendslist')
 .get(function (req, res, next) {
 	if (isLoggedIn(req, res)) {
-		
-			res.json(req.user.friends_list);
-		
+
+		res.json(req.user.friends_list);
+
 	} else {
 		res.redirect("/home")
 	}
@@ -82,10 +70,23 @@ router.route('/friendslist/:friend')
 
 .delete (function (req, res, next) {
 	if (isLoggedIn(req, res)) {
-		friends.findByIdAndRemove(req.params.friend, function (err, resp) {
+		req.user.friends_list.remove(req.params.friend);
+		req.user.save(function (err, updatedUser) {
 			if (err)
 				throw err;
-			res.json(resp);
+			users.findOne({
+				username: req.params.friend
+			}, function (err, foundUser) {
+				if (err)
+					throw err;
+				foundUser.friends_list.remove(req.user.username);
+				foundUser.save(function (err, updatedUser) {
+					if (err)
+						throw err;
+
+				});
+			});
+
 		});
 	} else {
 		res.redirect("/home")
