@@ -1,32 +1,35 @@
 //Troy + Ian
-var mongoose = require('mongoose');
-
-var Schema = mongoose.Schema;
+var mongoose = require('mongoose'),
+Schema = mongoose.Schema,
+passportLocalMongoose = require('passport-local-mongoose');
 
 var UserSchema = Schema({
 		username: {
 			type: String,
-			required: true,
 			max: 15,
-			unique: true,
-		},
-		password: {
-			type: String,
 			required: true,
-			max: 20
+			unique: true,
 		},
 		phone_number: {
 			type: String,
-			required: true
+			required: true,
 		},
-		name: {
+		first_name: {
 			type: String,
-			required: true
+			required: true,
+		},
+		last_name: {
+			type: String,
+			required: true,
 		},
 		email: {
 			type: String,
-			required: true
+			required: true,
 		},
+		friends_list: [{
+				type: String
+			}
+		],
 		transactions: [{
 				type: Schema.ObjectId
 			}
@@ -36,6 +39,8 @@ var UserSchema = Schema({
 			}
 		]
 	});
+
+UserSchema.plugin(passportLocalMongoose);
 
 //Export model
 module.exports = mongoose.model('User', UserSchema);

@@ -4,12 +4,21 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var TransactionSchema = Schema({
-		type: {
+		recevier_type: {
 			type: String,
 			required: true,
-			enum: ['Buy', 'Sell']
+			enum: ['BUY', 'SELL']
 		},
-		user: {
+		buyer_type: {
+			type: String,
+			required: true,
+			enum: ['BUY', 'SELL']
+		},
+		sender: {
+			type: String,
+			required: true
+		},
+		receiver: {
 			type: String,
 			required: true
 		},

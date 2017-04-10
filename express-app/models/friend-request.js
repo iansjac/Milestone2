@@ -6,9 +6,13 @@ var FriendRequestSchema = Schema({
 		status: {
 			type: String,
 			required: true,
-			enum: ['Sent', 'Accepted']
+			enum: ['PENDING', 'ACCEPTED']
 		},
-		user: {
+		sender: {
+			type: String,
+			required: true
+		},
+		receiver: {
 			type: String,
 			required: true
 		},
