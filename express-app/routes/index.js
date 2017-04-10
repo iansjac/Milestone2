@@ -14,7 +14,6 @@ router.get('/', function (req, res, next) {
 router.route('/home')
 .get(function (req, res, next) {
 	if (isLoggedIn(req, res)) {
-		/**TO-DO**/
 		res.render('index', {
 			title: 'Welcome Home ' + req.user.username + "!"
 		});
@@ -26,32 +25,45 @@ router.route('/home')
 
 });
 
-//PROFILE - TODO
+
+//PROFILE - done
 router.route('/profile')
 .get(function (req, res, next) {
-	users.find({}, function (err, user) {
-		if (err)
-			throw err;
-		res.json(user);
-	});
-	console.log("profile")
-	res.render('index', {
-		title: 'Profile'
-	});
-})
-//TODO
-.put(function (req, res, next) {
-	users.findByIdAndUpdate(req.params.userId, {
-		$set: req.body
-	}, {
-		new: true
-	}, function (err, user) {
-		if (err)
-			throw err;
-		res.json(user);
+	if (isLoggedIn(req, res)) {
+		requests.find({
+			username: req.user.username,
+            email: req.user.email,
+            phone_number: req.user.phone_number,
+            first_name: req.user.first_name,
+            last_name: req.user.last_name
+		}, function (err, freq) {
+			if (err)
+				throw err;
+			res.json(freq);
+		});
+	} else {
+		res.redirect("/home")
+	}
 
-	});
+});
 
+router.route('/profile/:profileId').put(function (req, res, next) {
+	if (isLoggedIn(req, res)) {
+		profile.findByIdAndUpdate(req.params.profileId, {
+			$set: req.body 
+		}, {
+			new: true
+		}, function (err, freq) {
+			if (err)
+				throw err; 
+			} else {
+				res.render('index', {
+					title: 'Profile!'
+				});
+			} else {
+		res.redirect("/home")
+	   }
+    )};
 });
 
 //FRIENDS LIST - done
@@ -67,7 +79,7 @@ router.route('/friendslist')
 });
 
 router.route('/friendslist/:friend')
-//TODO
+
 .delete (function (req, res, next) {
 	if (isLoggedIn(req, res)) {
 		friends.findByIdAndRemove(req.params.friend, function (err, resp) {
