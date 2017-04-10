@@ -23,11 +23,10 @@ router.route('/home')
 			title: 'Please sign in !'
 		});
 	}
-	/**TO-DO**/
 
 });
 
-//PROFILE - didnt look at
+//PROFILE - TODO
 router.route('/profile')
 .get(function (req, res, next) {
 	users.find({}, function (err, user) {
@@ -40,6 +39,7 @@ router.route('/profile')
 		title: 'Profile'
 	});
 })
+//TODO
 .put(function (req, res, next) {
 	users.findByIdAndUpdate(req.params.userId, {
 		$set: req.body
@@ -54,32 +54,33 @@ router.route('/profile')
 
 });
 
-//FRIENDS LIST - didnt look at
-router.route('friendslist/:friends')
+//FRIENDS LIST - done
+router.route('/friendslist')
 .get(function (req, res, next) {
-	friends.find({}, function (err, f) {
-		if (err)
-			throw err;
-		res.json(f);
-	});
-	res.render('index', {
-		title: 'Friends List'
-	});
-	console.log("friendlist")
-
+	if (isLoggedIn(req, res)) {
+		
+			res.json(req.user.friends_list);
+		
+	} else {
+		res.redirect("/home")
+	}
 });
 
-router.route('friendslist/:friends/friendId')
-
+router.route('/friendslist/:friend')
+//TODO
 .delete (function (req, res, next) {
-	friends.findByIdAndRemove(req.params.friendId, function (err, resp) {
-		if (err)
-			throw err;
-		res.json(resp);
-	});
+	if (isLoggedIn(req, res)) {
+		friends.findByIdAndRemove(req.params.friend, function (err, resp) {
+			if (err)
+				throw err;
+			res.json(resp);
+		});
+	} else {
+		res.redirect("/home")
+	}
 });
 
-//CREATE TRANSACTION - didnt look at
+//CREATE TRANSACTION - TODO
 router.route('friendslist/:friendId/transactions/:transactionId')
 .get(function (req, res, next) {
 	friends.findById(req.params.friendId, function (err, tran) {
@@ -88,6 +89,7 @@ router.route('friendslist/:friendId/transactions/:transactionId')
 		res.json(tran.transactions.id(req.params.transactionId));
 	});
 })
+//TODO
 .post(function (req, res, next) {
 	recipes.findById(req.params.friendId, function (err, recipe) {
 		if (err)
@@ -102,44 +104,67 @@ router.route('friendslist/:friendId/transactions/:transactionId')
 	});
 });
 
-//REQUESTS - didnt look at
+//REQUESTS - done
 router.route('/requests')
 .get(function (req, res, next) {
-	requests.find({}, function (err, freq) {
-		if (err)
-			throw err;
-		res.json(freq);
-	});
-	console.log("requests")
-	res.render('index', {
-		title: 'Requests'
-	});
-})
-.put(function (req, res, next) {
-	requests.findByIdAndUpdate(req.params.requestId, {
-		$set: req.body //assuming body contains the update
-	}, {
-		new: true
-	}, function (err, freq) {
-		if (err)
-			throw err; //propagate error
-		res.json(freq);
+	if (isLoggedIn(req, res)) {
+		requests.find({
+			receiver: req.user.username
+		}, function (err, freq) {
+			if (err)
+				throw err;
+			res.json(freq);
+		});
+	} else {
+		res.redirect("/home")
+	}
 
-	});
-})
-.post(function (req, res, next) {
-	requests.create(req.body, function (err, freq) {
-		if (err)
-			throw err; //propagate error
+});
+router.route('/requests/:requestId').put(function (req, res, next) {
+	if (isLoggedIn(req, res)) {
+		requests.findByIdAndUpdate(req.params.requestId, {
+			$set: req.body //assuming body contains the update
+		}, {
+			new: true
+		}, function (err, freq) {
+			if (err)
+				throw err; //propagate error
+			if (freq.status == "ACCEPTED" && freq.receiver == req.user.username) {
+				req.user.friends_list.push(freq.sender); //push to the comments collection
+				req.user.save(function (err, updatedUser) {
+					if (err)
+						throw err;
 
-		console.log('Created new Frined Request');
+				});
+				users.findOne({
+					username: freq.sender
+				}, function (err, foundUser) {
+					if (err)
+						throw err;
 
-		var id = freq._id
-			res.writeHead(200, {
-				'Content-Type': 'text-plain'
-			});
-		res.end('Added:' + id);
-	});
+					foundUser.friends_list.push(freq.receiver); //push to the comments collection
+					foundUser.save(function (err, updatedUser) {
+						if (err)
+							throw err;
+						requests.findByIdAndRemove(freq._id, function (err, resp) {
+							if (err)
+								throw err;
+							res.json(resp);
+						});
+					});
+				});
+
+			} else {
+				res.render('index', {
+					title: 'Status was not set to ACCEPTED or you are the sender and not the receiver of this request !'
+				});
+			}
+
+		});
+	} else {
+		res.redirect("/home")
+	}
+
 });
 
 //Check if registered user logged in

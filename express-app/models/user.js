@@ -13,6 +13,7 @@ var UserSchema = Schema({
 		phone_number: {
 			type: String,
 			required: true,
+			ref: 'FriendRequest'
 		},
 		first_name: {
 			type: String,

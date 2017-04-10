@@ -4,12 +4,17 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var TransactionSchema = Schema({
+		status: {
+			type: String,
+			required: true,
+			enum: ['PENDING', 'ACCEPTED','COMPLETED']
+		},
 		recevier_type: {
 			type: String,
 			required: true,
 			enum: ['BUY', 'SELL']
 		},
-		buyer_type: {
+		sender_type: {
 			type: String,
 			required: true,
 			enum: ['BUY', 'SELL']
@@ -22,7 +27,7 @@ var TransactionSchema = Schema({
 			type: String,
 			required: true
 		},
-        amount: {
+		amount: {
 			type: Number,
 			required: true
 		},
