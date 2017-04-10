@@ -83,7 +83,7 @@ userRouter.get('/logout', function (req, res) {
 		});
 
 });
-//VIEW TRANSACTION - didnt look at
+//VIEW TRANSACTION - TODO
 userRouter.route('/:userId/requests/:transactionId')
 .get(function (req, res, next) {
 	/**TO-DO**/
@@ -92,9 +92,11 @@ userRouter.route('/:userId/requests/:transactionId')
 		title: 'View Transaction'
 	});
 })
+//TODO
 .put(function (req, res, next) {
 	/**TO- DO**/
 })
+//TODO
 .post(function (req, res, next) {
 	/**TO-DO**/
 });
