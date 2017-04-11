@@ -4,13 +4,14 @@ var mongoose = require('mongoose');
 var friends = require('../models/user');
 var requests = require('../models/friend-request');
 var users = require('../models/user');
+var transactions = require('../models/transaction');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
 	res.redirect("/home")
 });
 
-//HOME - done
+//HOME
 router.route('/home')
 .get(function (req, res, next) {
 	if (isLoggedIn(req, res)) {
@@ -25,7 +26,7 @@ router.route('/home')
 
 });
 
-//PROFILE - done
+//PROFILE - show details
 router.route('/profile')
 .get(function (req, res, next) {
 	if (isLoggedIn(req, res)) {
@@ -37,7 +38,7 @@ router.route('/profile')
 	}
 
 });
-//done
+//UPDATE PROFILE
 router.route('/profile').put(function (req, res, next) {
 	if (isLoggedIn(req, res)) {
 		users.findByIdAndUpdate(req.user._id, {
@@ -54,7 +55,7 @@ router.route('/profile').put(function (req, res, next) {
 	}
 });
 
-//FRIENDS LIST - done
+//FRIENDS LIST - show friends
 router.route('/friendslist')
 .get(function (req, res, next) {
 	if (isLoggedIn(req, res)) {
@@ -65,9 +66,8 @@ router.route('/friendslist')
 		res.redirect("/home")
 	}
 });
-
+//DELETE FRIEND
 router.route('/friendslist/:friend')
-
 .delete (function (req, res, next) {
 	if (isLoggedIn(req, res)) {
 		req.user.friends_list.remove(req.params.friend);
@@ -84,6 +84,9 @@ router.route('/friendslist/:friend')
 					if (err)
 						throw err;
 
+					res.render('index', {
+						title: 'Friend Removed !'
+					});
 				});
 			});
 
@@ -93,32 +96,93 @@ router.route('/friendslist/:friend')
 	}
 });
 
-//CREATE TRANSACTION - TODO
-router.route('friendslist/:friendId/transactions/:transactionId')
+//GET SPECIFIC TRANSACTION
+router.route('/friendslist/:friendId/transactions/:transactionId')
 .get(function (req, res, next) {
-	friends.findById(req.params.friendId, function (err, tran) {
-		if (err)
-			throw err;
-		res.json(tran.transactions.id(req.params.transactionId));
-	});
-})
-//TODO
-.post(function (req, res, next) {
-	recipes.findById(req.params.friendId, function (err, recipe) {
-		if (err)
-			throw err;
-		recipe.comments.push(req.body); //push to the comments collection
-		recipe.save(function (err, recipe) {
+	if (isLoggedIn(req, res)) {
+		transactions.findById(req.params.transactionId, function (err, tran) {
 			if (err)
 				throw err;
-			console.log('Updated Comments!');
-			res.json(recipe);
+			if ((tran.sender == req.params.friendId || tran.receiver == req.params.friendId) && tran.status == "ACCEPTED") {
+				res.json(tran);
+			} else {
+				res.render('index', {
+					title: 'No transactions with that friend or it was not accepted yet !'
+				});
+			}
 		});
-	});
+	} else {
+		res.redirect("/home")
+	}
+});
+//ACCEPT TRANSACTION
+router.route('/friendslist/:friendId/transactions/:transactionId')
+.put(function (req, res, next) {
+	if (isLoggedIn(req, res)) {
+		transactions.findByIdAndUpdate(req.params.transactionId, {
+			$set: req.body //assuming body contains the update
+		}, {
+			new: true
+		}, function (err, tran) {
+			if (err)
+				throw err; //propagate error
+			res.render('index', {
+				title: 'Transaction Updated !!! !'
+			});
+		});
+	} else {
+		res.redirect(303,"/home")
+	}
+});
+//CREATE TRANSACTION REQUEST
+router.route('/friendslist/:friendId/transactions').post(function (req, res, next) {
+	if (isLoggedIn(req, res)) {
+		users.findOne({
+			username: req.params.friendId
+		}, function (err, foundUser) {
+			if (err)
+				throw err;
+			console.log("Found " + foundUser.username);
+
+			transactions.create({
+				status: "PENDING",
+				sender: req.user.username,
+				receiver: foundUser.username,
+				receiver_type: req.body.receiver_type,
+				sender_type: req.body.sender_type,
+				amount: req.body.amount
+			}, function (err, newRequest) {
+				if (err)
+					throw err; //propagate error
+
+				console.log('Created new Transaction Request');
+				var id = newRequest._id;
+
+				req.user.transactions.push(id); //push to the comments collection
+				req.user.save(function (err, updatedUser) {
+					if (err)
+						throw err;
+
+				});
+				foundUser.transactions.push(id); //push to the comments collection
+				foundUser.save(function (err, updatedUser) {
+					if (err)
+						throw err;
+
+					res.json("Transaction Request Sent !");
+
+				});
+
+			});
+
+		});
+	} else {
+		res.redirect("/home");
+	}
 });
 
-//REQUESTS - done
-router.route('/requests')
+//SHOW FRIEND REQUESTS
+router.route('/friendrequests')
 .get(function (req, res, next) {
 	if (isLoggedIn(req, res)) {
 		requests.find({
@@ -133,7 +197,24 @@ router.route('/requests')
 	}
 
 });
-router.route('/requests/:requestId').put(function (req, res, next) {
+//SHOW TRANSACTION REQUESTS 
+router.route('/transactionrequests')
+.get(function (req, res, next) {
+	if (isLoggedIn(req, res)) {
+		transactions.find({
+			receiver: req.user.username
+		}, function (err, freq) {
+			if (err)
+				throw err;
+			res.json(freq);
+		});
+	} else {
+		res.redirect("/home")
+	}
+
+});
+//ACCEPT FRIEND REQUEST
+router.route('/friendrequests/:requestId').put(function (req, res, next) {
 	if (isLoggedIn(req, res)) {
 		requests.findByIdAndUpdate(req.params.requestId, {
 			$set: req.body //assuming body contains the update
@@ -143,7 +224,8 @@ router.route('/requests/:requestId').put(function (req, res, next) {
 			if (err)
 				throw err; //propagate error
 			if (freq.status == "ACCEPTED" && freq.receiver == req.user.username) {
-				req.user.friends_list.push(freq.sender); //push to the comments collection
+				req.user.friends_list.push(freq.sender); 
+				req.user.friend_request.remove(req.params.requestId);
 				req.user.save(function (err, updatedUser) {
 					if (err)
 						throw err;
@@ -155,7 +237,8 @@ router.route('/requests/:requestId').put(function (req, res, next) {
 					if (err)
 						throw err;
 
-					foundUser.friends_list.push(freq.receiver); //push to the comments collection
+					foundUser.friends_list.push(freq.receiver); 
+					foundUser.friend_request.remove(req.params.requestId);
 					foundUser.save(function (err, updatedUser) {
 						if (err)
 							throw err;
@@ -175,7 +258,7 @@ router.route('/requests/:requestId').put(function (req, res, next) {
 
 		});
 	} else {
-		res.redirect("/home")
+		res.redirect(303,"/home")
 	}
 
 });

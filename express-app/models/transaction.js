@@ -7,9 +7,9 @@ var TransactionSchema = Schema({
 		status: {
 			type: String,
 			required: true,
-			enum: ['PENDING', 'ACCEPTED','COMPLETED']
+			enum: ['PENDING', 'ACCEPTED', 'COMPLETED']
 		},
-		recevier_type: {
+		receiver_type: {
 			type: String,
 			required: true,
 			enum: ['BUY', 'SELL']

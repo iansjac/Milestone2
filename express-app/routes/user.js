@@ -14,13 +14,13 @@ userRouter.get('/', function (req, res, next) {
 		title: 'Express'
 	});
 });
-//REGISTER - done
+//REGISTER
 userRouter.get('/register', function (req, res) {
 	res.render('index', {
 		title: "Please post to register"
 	});
 });
-//REGISTER - done
+//REGISTER - CREATE ACCOUNT
 userRouter.post('/register', function (req, res) {
 	User.register(new User({
 			username: req.body.username,
@@ -42,13 +42,13 @@ userRouter.post('/register', function (req, res) {
 		});
 	});
 });
-//LOGIN - done
+//LOGIN
 userRouter.get('/login', function (req, res) {
 	res.render('index', {
 		title: "Please post your username and password to login!"
 	});
 });
-//LOGIN - done
+//LOGIN AUTHENTICATION
 userRouter.post('/login', function (req, res, next) {
 	passport.authenticate('local', function (err, user, info) {
 		if (err) {
@@ -69,7 +69,7 @@ userRouter.post('/login', function (req, res, next) {
 		});
 	})(req, res, next);
 });
-//LOGOUT - done
+//LOGOUT 
 userRouter.get('/logout', function (req, res) {
 	if (isLoggedIn(req, res)) {
 		req.logout();
@@ -83,83 +83,65 @@ userRouter.get('/logout', function (req, res) {
 		});
 
 });
-//VIEW TRANSACTION - TODO
-userRouter.route('/:userId/requests/:transactionId')
-.get(function (req, res, next) {
-	/**TO-DO**/
-	console.log("View transaction")
-	res.render('index', {
-		title: 'View Transaction'
-	});
-})
-//TODO
-.put(function (req, res, next) {
-	/**TO- DO**/
-})
-//TODO
-.post(function (req, res, next) {
-	/**TO-DO**/
-});
 
-//SEARCH - done
+//SEARCH FOR A USER
 userRouter.route('/search').post(function (req, res, next) {
-	var name = req.body.username;
-	User.find({
-		username: name
-	}, function (err, freq) {
-		if (err)
-			throw err;
-		res.json(freq);
-	});
-	console.log("search");
-
-});
-//SEARCH AND SEND FRIEND REQUEST - done
-userRouter.route('/search/:username').post(function (req, res, next) {
 	if (isLoggedIn(req, res)) {
-	User.findOne({
-		username: req.params.username
-	}, function (err, foundUser) {
-		if (err)
-			throw err;
-		console.log("Found " + foundUser.username);
-
-		requests.create({
-			status: "PENDING",
-			sender: req.user.username,
-			receiver: foundUser.username
-		}, function (err, newRequest) {
+		var name = req.body.username;
+		User.find({
+			username: name
+		}, function (err, freq) {
 			if (err)
-				throw err; //propagate error
-
-			console.log('Created new Frined Request');
-			var id = newRequest._id;
-			
-			
-			req.user.friend_request.push(id); //push to the comments collection
-			req.user.save(function (err, updatedUser) {
-				if (err)
-					throw err;
-
-			});
-			foundUser.friend_request.push(id); //push to the comments collection
-			foundUser.save(function (err, updatedUser) {
-				if (err)
-					throw err;
-				
-				res.json("Request Sent !");
-
-			});
-			
-
+				throw err;
+			res.json(freq);
 		});
-
-	});
-	}
-	else{
+		console.log("search");
+	} else {
 		res.redirect("/home");
 	}
-	
+});
+//SEARCH AND SEND FRIEND REQUEST
+userRouter.route('/search/:username').post(function (req, res, next) {
+	if (isLoggedIn(req, res)) {
+		User.findOne({
+			username: req.params.username
+		}, function (err, foundUser) {
+			if (err)
+				throw err;
+			console.log("Found " + foundUser.username);
+
+			requests.create({
+				status: "PENDING",
+				sender: req.user.username,
+				receiver: foundUser.username
+			}, function (err, newRequest) {
+				if (err)
+					throw err; //propagate error
+
+				console.log('Created new Frined Request');
+				var id = newRequest._id;
+
+				req.user.friend_request.push(id); //push to the comments collection
+				req.user.save(function (err, updatedUser) {
+					if (err)
+						throw err;
+
+				});
+				foundUser.friend_request.push(id); //push to the comments collection
+				foundUser.save(function (err, updatedUser) {
+					if (err)
+						throw err;
+
+					res.json("Request Sent !");
+
+				});
+
+			});
+
+		});
+	} else {
+		res.redirect("/home");
+	}
 
 });
 
