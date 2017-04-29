@@ -1,7 +1,7 @@
 (function () {
 
     // 1. declare our controller.
-    function userController ($scope,$location, transactionProvider,authenticationSvc) {
+    function userController ($scope,$location, userProvider,authenticationSvc) {
 
         $scope.userInfo = authenticationSvc.getUserInfo();
         $scope.new_user = { };
@@ -14,7 +14,7 @@
            $scope.user= userProvider.getUser().query(
             function(resp){
                 $scope.finished_loading = true;
-				$scope.transactions = resp;
+				$scope.users = resp;
 			}, function(resp){
                     $scope.page_load_error = err.message;
             }); 
@@ -25,7 +25,7 @@
            var User = userProvider.setUser();
 		    var new_user = new User(transaction_data)
             new_user.$save({},function(data){
-                    $scope.add_transaction_error = null;
+                    $scope.add_user_error = null;
                     get_user();
             },
             function(err){

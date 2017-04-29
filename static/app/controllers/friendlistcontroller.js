@@ -11,7 +11,7 @@
         $scope.finished_loading = false;
 
         function get_friends() {
-           $scope.recipes= friendProvider.getFriends().query(
+           $scope.friends= friendProvider.getFriends().query(
             function(resp){
                 $scope.finished_loading = true;
 				$scope.recipes = resp;
@@ -21,7 +21,7 @@
 
         }
     
-        $scope.addRecipe = function (friend_data) {
+        $scope.addFriend = function (friend_data) {
            var Friend = friendProvider.getFriends();
 		    var new_friend = new User(friend_data)
             new_recipe.$save({},function(data){
