@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Buck-Cats</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Text|Trirong" rel="stylesheet">
+    <!-- google font -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- bootstrap libraries -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background-color:#007CB4">
+    <div class="container-fluid row">
+        <div id="header" class="col-xs-12" style="border-bottom: 1px solid black;padding:0; margin:0;">
+            <div id="logo-col" class="col-xs-1" style="padding:0; margin:0;">
+                <a href="HomePage.html"><img src="images/logo.png" class="imageSize" alt="logo" align="center"></a>
+            </div>
+            <div class="col-xs-9" style="display:flex;justify-content:center;">
+                <nav class="navbar navbar-default fit-nav-bar" style="margin-top:10px;">
+                    <div class="container-fluid" style="padding-left:0px;padding-right:0px;margin-right:0;margin-left:0">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse" id="myNavbar">
+                            <ul class="nav navbar-nav">
+                                <li class="nav-bar-margin"><a href="FriendsList.html">Friends</a></li>
+                                <li class="nav-bar-margin"><a href="Requests.html">Requests</a></li>
+                                <li class="nav-bar-margin"><a href="Rankings.html">Rankings</a></li>
+                                <li class="nav-bar-margin"><a href="Rewards.html">Rewards</a></li>
+                            </ul>
+                            <form class="navbar-form navbar-left">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Search">
+                                </div>
+                                <button type="submit" class="btn btn-default"><a href="SearchResults.html">Submit</a></button>
+                            </form>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li style="padding-right:8px"><a href="HomePage.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+			<div class="col-xs-2">
+               <Button data-toggle="modal" data-target="#aboutModal">About</Button>
+               <Button data-toggle="modal" data-target="#helpModal">Help</Button>
+               <Button data-toggle="modal" data-target="#contactModal">Contact</Button>
+            </div>
+        </div>
+    </div>
+    <div id="mainContent" class="container-fluid row">
+        <div class="col-xs-1">.</div>
+        <div id="contentBox" class="col-xs-8" style="text-align:center">
+            <br>
+            <p style="text-align:center; font-size:30px"><b>Review Transaction</b></p>
+            <h3><b>with MBrockben1232</b></h3><br>
+            <form name="transactionReview">
+                <h4><b>Rating: </b></h4>
+                <div class="rating">
+                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                </div><br>
+                <h4><b>Reasoning: </b></h4>
+                <textarea name="review" rows="10" columns="20" style="width:400px; height:250px"></textarea><br><br>
+                <input type="submit" value="Submit Review">
+            </form>
+            <br><br><br><br>
+        </div>
+        <div id="profileBox" class="col-xs-2 black-border">
+            <br>
+            <img src="images/hoffmanLogo.png" class="img-circle profile-image" alt="Hoffman">
+            <div class="form-group">
+               <br>
+               <button type="button" class="btn btn-default" id="profilebtn" style="display: block;margin-left: auto;margin-right: auto;"><a href="MyProfile.html">MY PROFILE</a></button>
+            </div>
+            <div style="border:1px solid black; background-color:#ECECEA;">
+                <p style="text-align:center;font-weight:bold">Friend Requests</p>
+                <ul>
+                    <li>Kiernan1039 has requested to be your friend!</li>
+                    <li>PSherman4242 has requested to be your friend!</li>
+                </ul>
+
+                <p style="text-align:center;font-weight:bold">Transaction Requests</p>
+                <ul>
+                    <li>Suzy0183 has requested to buy $50 from you!</li>
+                    <li>PeterH1037 has requested to buy $20 from you!</li>
+                </ul>
+            </div>
+         <div class="col-xs-1" >.</div>
+      </div>
+    </div>
+	<!-- Modal -->
+      <div id="aboutModal" class="modal fade" role="dialog">
+         <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">About</h4>
+               </div>
+               <div class="modal-body">
+                  <ul>
+                     <li>Buck-Cats website was developed by Janine Jay and Troy Ingel</li>
+                     <li>Buck-Cats Idea created by Ian Jacobs, Alex Thimineur, Brian Eisenberg and Diego Houlguin</li>
+                  </ul>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Modal -->
+      <div id="helpModal" class="modal fade" role="dialog">
+         <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Help</h4>
+               </div>
+               <div class="modal-body">
+                  <ul>
+                     <li>This website is designed to help Quinnipiac students buy and sell meal plan.</li>
+                     <li>To get started, make an account and set your buying and selling preferences.</li>
+                     <li>Then use the search bar to start searching for and adding friends.</li>
+                     <li>Once friends have been added, you can start making transactions with them</li>
+                  </ul>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Modal -->
+      <div id="contactModal" class="modal fade" role="dialog">
+         <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Contact</h4>
+               </div>
+               <div class="modal-body">
+                  <p>Any issues, suggestions or business inquiries can be sent to BuckCats@gmail.com</p>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>
