@@ -1,0 +1,123 @@
+/*Sidebar Styling*/
+#profileBox {
+    position: fixed;
+    right: 8.33%;
+    background-color: #FC7802;
+    height: 100%;
+}
+
+
+/*Main Content Styling*/
+#contentBox {
+    background-color: #ECECEA;
+    position: relative;
+    z-index: 2;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+
+/*Header Styling*/
+#header {
+    height: 100px;
+    background-color: #009DDF;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 3;
+}
+
+
+/*Content Styling*/
+#mainContent {
+    margin-top: 100px;
+}
+.title-bar {
+    height: 100px;
+}
+
+
+/*Form Formatting*/
+.input-field-size {
+    height: 20px;
+}
+
+
+/*Image Sizing*/
+.imageSize {
+    height: 90px;
+    width: 150%;
+    padding-top: 5px;
+    padding-left: 5px;
+    margin: auto;
+}
+.profile-image {
+    height: 130px;
+    width: 75%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*Navigation Bar Styling*/
+.nav-bar-margin {
+    border-right: 1px solid black;
+}
+.fit-nav-bar {
+    text-align: center;
+    display: inline-block;
+    float: none;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border: 1px solid black;
+}
+.black-border {
+    border: 1px solid black;
+}
+
+
+/*Link Sytling*/
+a {
+    color: #000;
+}
+
+
+/*Gold Badge Image*/
+.rewardImages {
+    width: 100px;
+    height: 100px;
+}
+
+
+/*Modal*/
+.modal-header,
+.close {
+    background-color: #fc7802;
+    color: white !important;
+    text-align: center;
+    font-size: 30px;
+}
+.modal-footer {
+    background-color: #f9f9f9;
+}
+
+
+/*Rating Stars*/
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+}
+
+.rating > span {
+    display: inline-block;
+    position: relative;
+    width: 1.1em;
+}
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+    content: "\2605";
+    position: absolute;
+}
