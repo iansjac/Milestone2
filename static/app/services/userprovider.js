@@ -20,7 +20,7 @@
                             );
  
         };    
-    }
+    
     
         this.setUser = function () {
            return  $resource(this._server_host+"/register",null,  

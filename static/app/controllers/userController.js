@@ -22,8 +22,8 @@
         }
     
         $scope.addUser = function (user_data) {
-           var User = userProvider.getUser();
-		    var new_tranaction = new User(transaction_data)
+           var User = userProvider.setUser();
+		    var new_user = new User(transaction_data)
             new_user.$save({},function(data){
                     $scope.add_transaction_error = null;
                     get_user();
