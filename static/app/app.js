@@ -2,8 +2,8 @@ var recipesApp = angular.module("thindrApp", ["ngRoute","ngResource"]);
 
 recipesApp.config(function ($routeProvider) {
     $routeProvider
-        .when("/recipes",  { controller: "RecipeListController", 
-                            templateUrl: "app/partials/recipe_list.html",
+        .when("/profile",  { controller: "userController", 
+                            templateUrl: "app/partials/Profile.html",
                             resolve: { //if user is not logged in direct user to login page.
 							//The object sent here is boardcasted via $rootScope. If Route is resovled,
 							//the event $routeChangeScucess is boradcast else $routeChangeError is boradcast
@@ -20,14 +20,14 @@ recipesApp.config(function ($routeProvider) {
                                         }
                                     }
         })
-        .when("/users/:user_id",  { controller: "UserController", templateUrl: "app/partials/MyProfile.html" })
+        .when("/profile",  { controller: "UserController", templateUrl: "app/partials/Profile.html" })
         .when("/login", {
             templateUrl: "app/partials/login.html",
             controller: "LoginController" })
         .when("/", {redirectTo: "/users"})
         .otherwise({ redirectTo: "/404_page" });
 });
-recipesApp.run(["$rootScope", "$location", function ($rootScope, $location) {
+thindrApp.run(["$rootScope", "$location", function ($rootScope, $location) {
 
     $rootScope.$on("$routeChangeSuccess", function (userInfo) {
         console.log(userInfo);

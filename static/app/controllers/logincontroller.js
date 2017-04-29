@@ -4,7 +4,7 @@
         authenticationSvc.login($scope.userName, $scope.password)
             .then(function (result) {
                 $scope.userInfo = result;
-                $location.path("/");
+                $location.path("/profile");
             }, function (error) {
                 $window.alert("Invalid credentials");
                 console.log(error);
