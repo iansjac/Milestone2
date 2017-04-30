@@ -33,6 +33,13 @@ thindrApp.run(["$rootScope", "$location", function ($rootScope, $location) {
         console.log(userInfo);
     });
 
+    function ($rootScope, $location, $cookieStore, $http) {
+        // keep user logged in after page refresh
+        $rootScope.globals = $cookieStore.get('globals') || {};
+        if ($rootScope.globals.userInfo) {
+            $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.userInfo.authdata; 
+        }
+    
     $rootScope.$on("$routeChangeError", function (event, current, previous, eventObj) {
         if (eventObj.authenticated === false) {
             $location.path("/login");
