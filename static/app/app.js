@@ -21,11 +21,11 @@ thindrApp.config(function ($routeProvider) {
                                     }
         })
         .when("/profile",  { controller: "UserController", templateUrl: "app/partials/Profile.html" })
-        .when("/login", { templateUrl: "app/partials/login.html", controller: "LoginController" })
+        .when("/user/login", { templateUrl: "app/partials/login.html", controller: "LoginController" })
         .when("/friendslist", { templateUrl: "app/partials/FriendsList.html", controller: "friendlistcontroller"})
         .when("/transactionrequests", { templateUrl: "app/partials/Transaction.html", controller: "transactionController"})
-        .when("/", {redirectTo: "/HomePage"})
-        .otherwise({ redirectTo: "/404_page" });
+        .when("/", {redirectTo: "/login"})
+        .otherwise({ redirectTo: "/login" });
 });
 thindrApp.run(["$rootScope", "$location", function ($rootScope, $location) {
 

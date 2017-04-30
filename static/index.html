@@ -1,4 +1,4 @@
-<html ng-app="recipesApp">
+<html ng-app="thindrApp">
 <head>
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/recipes.css">
@@ -9,16 +9,23 @@
 <body>
 
 
-
+<h1>HEY</h1>
   <div id="content" ng-view></div>
 
 
   <script type='text/javascript' src="app/app.js"></script>
-  <script type='text/javascript' src="app/controllers/recipelistcontroller.js"></script>
-  <script type='text/javascript' src="app/controllers/viewrecipecontroller.js"></script>
+  
+  <script type='text/javascript' src="app/controllers/friendlistcontroller.js"></script>
   <script type='text/javascript' src="app/controllers/logincontroller.js"></script>
-  <script type='text/javascript' src="app/services/recipeprovider.js"></script>
+  <script type='text/javascript' src="app/controllers/transactioncontroller.js"></script>
+  <script type='text/javascript' src="app/controllers/recipelistcontroller.js"></script>
+  <script type='text/javascript' src="app/controllers/usercontroller.js"></script>
+  <script type='text/javascript' src="app/controllers/viewrecipecontroller.js"></script>
+  
+  <script type='text/javascript' src="app/services/friendprovider.js"></script>
   <script type='text/javascript' src="app/services/authenticationfactory.js"></script>
+  <script type='text/javascript' src="app/services/transactionprovider.js"></script>
+  <script type='text/javascript' src="app/services/userprovider.js"></script>
 
 </body>
 </html>

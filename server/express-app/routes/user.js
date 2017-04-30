@@ -44,9 +44,7 @@ userRouter.post('/register', function (req, res) {
 });
 //LOGIN
 userRouter.get('/login', function (req, res) {
-	res.render('index', {
-		title: "Please post your username and password to login!"
-	});
+	
 });
 //LOGIN AUTHENTICATION
 userRouter.post('/login', function (req, res, next) {

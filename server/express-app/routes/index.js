@@ -19,9 +19,7 @@ router.route('/home')
 			title: 'Welcome Home ' + req.user.username + "!"
 		});
 	} else {
-		res.render('index', {
-			title: 'Please sign in !'
-		});
+		
 	}
 
 });
