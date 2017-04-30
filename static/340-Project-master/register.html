@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>Buck-Cats</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="style.css">
+      <link href="https://fonts.googleapis.com/css?family=Crimson+Text|Trirong" rel="stylesheet">
+      <!-- google font -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <!-- bootstrap libraries -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   </head>
+   <body style="background-color:#007CB4">
+      
+      <div id="mainContent" class="container-fluid row">
+         <div class="col-xs-3">.</div>
+         <div id="contentBox" class="col-xs-6" style="text-align:left">
+            <div class="modal-body">
+               <div class="well">
+                  
+                  
+                        <form class="form-horizontal" action='' method="POST">
+                           <fieldset>
+                              <div id="legend">
+                                 <legend class="">Register</legend>
+                              </div>
+                              <div class="control-group">
+                                 <!-- Username -->
+                                 <label class="control-label"  for="username">Username</label>
+                                 <div class="controls">
+                                    <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+                                 </div>
+                              </div>
+                              <div class="control-group">
+                                 <!-- Password-->
+                                 <label class="control-label" for="password">Password</label>
+                                 <div class="controls">
+                                    <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+                                 </div>
+                              </div>
+							  <div class="control-group">
+                                 <!-- first name-->
+                                 <label class="control-label" for="fname">First Name</label>
+                                 <div class="controls">
+                                    <input  id="fname" name="fname" placeholder="" class="input-xlarge">
+                                 </div>
+                              </div>
+							  <div class="control-group">
+                                 <!-- last name-->
+                                 <label class="control-label" for="lname">Last Name</label>
+                                 <div class="controls">
+                                    <input id="lname" name="lname" placeholder="" class="input-xlarge">
+                                 </div>
+                              </div>
+							  <div class="control-group">
+                                 <!-- email-->
+                                 <label class="control-label" for="email">Email</label>
+                                 <div class="controls">
+                                    <input type="email" id="email" name="email" placeholder="" class="input-xlarge">
+                                 </div>
+                              </div>
+							  <div class="control-group">
+                                 <!-- phone number-->
+                                 <label class="control-label" for="phoneNumber">Phone Number</label>
+                                 <div class="controls">
+                                    <input id="phoneNumber" name="phoneNumber" placeholder="" class="input-xlarge">
+                                 </div>
+                              </div>
+                              <div class="control-group">
+                                 <!-- Button -->
+                                 <div class="controls">
+                                    <button class="btn btn-success">Register</button>
+                                 </div>
+                              </div>
+                           </fieldset>
+                        </form>
+                     </div>
+                     
+                      
+               
+            </div>
+         </div>
+         <div class="col-xs-1">.</div>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+         <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-header" style="padding:35px 50px;">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
+               </div>
+               <div class="modal-body" style="padding:40px 50px;">
+                  <form role="form">
+                     <div class="form-group">
+                        <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+                        <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+                     </div>
+                     <div class="form-group">
+                        <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+                        <input type="password" class="form-control" id="psw" placeholder="Enter password">
+                     </div>
+                     <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="" checked>Remember me</label>
+                     </div>
+                     <button type="submit" style="background-color: #fc7802" class="btn btn-success btn-block">Login</button>
+                  </form>
+               </div>
+               <div class="modal-footer">
+                  <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                  <p>Not a member? <a href="MyProfile.html">Sign Up</a></p>
+                  <p><a href="#">Forgot Password?</a></p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Modal -->
+      <div id="aboutModal" class="modal fade" role="dialog">
+         <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">About</h4>
+               </div>
+               <div class="modal-body">
+                  <ul>
+                     <li>Buck-Cats website was developed by Janine Jay and Troy Ingel</li>
+                     <li>Buck-Cats Idea created by Ian Jacobs, Alex Thimineur, Brian Eisenberg and Diego Houlguin</li>
+                  </ul>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Modal -->
+      <div id="helpModal" class="modal fade" role="dialog">
+         <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Help</h4>
+               </div>
+               <div class="modal-body">
+                  <ul>
+                     <li>This website is designed to help Quinnipiac students buy and sell meal plan.</li>
+                     <li>To get started, make an account and set your buying and selling preferences.</li>
+                     <li>Then use the search bar to start searching for and adding friends.</li>
+                     <li>Once friends have been added, you can start making transactions with them</li>
+                  </ul>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Modal -->
+      <div id="contactModal" class="modal fade" role="dialog">
+         <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Contact</h4>
+               </div>
+               <div class="modal-body">
+                  <p>Any issues, suggestions or business inquiries can be sent to BuckCats@gmail.com</p>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

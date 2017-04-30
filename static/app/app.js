@@ -21,11 +21,12 @@ thindrApp.config(function ($routeProvider) {
                                     }
         })
         .when("/profile",  { controller: "UserController", templateUrl: "app/partials/Profile.html" })
-        .when("/user/login", { templateUrl: "app/partials/login.html", controller: "LoginController" })
+        .when("/user/login", { templateUrl: "app/partials/mylogin.html", controller: "LoginController" })
+		.when("/user/register", { templateUrl: "app/partials/register.html"})
         .when("/friendslist", { templateUrl: "app/partials/FriendsList.html", controller: "friendlistcontroller"})
         .when("/transactionrequests", { templateUrl: "app/partials/Transaction.html", controller: "transactionController"})
-        .when("/", {redirectTo: "/login"})
-        .otherwise({ redirectTo: "/login" });
+        .when("/", {redirectTo: "user/login"})
+        .otherwise({ redirectTo: "user/login" });
 });
 thindrApp.run(["$rootScope", "$location", function ($rootScope, $location) {
 
@@ -33,12 +34,14 @@ thindrApp.run(["$rootScope", "$location", function ($rootScope, $location) {
         console.log(userInfo);
     });
 
-    function ($rootScope, $location, $cookieStore, $http) {
+	//this function is defined wrong i think, wasnt working
+	
+    //function ($rootScope, $location, $cookieStore, $http) {
         // keep user logged in after page refresh
-        $rootScope.globals = $cookieStore.get('globals') || {};
-        if ($rootScope.globals.userInfo) {
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.userInfo.authdata; 
-        }
+      //  $rootScope.globals = $cookieStore.get('globals') || {};
+       // if ($rootScope.globals.userInfo) {
+          //  $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.userInfo.authdata; 
+	//}};
     
     $rootScope.$on("$routeChangeError", function (event, current, previous, eventObj) {
         if (eventObj.authenticated === false) {
