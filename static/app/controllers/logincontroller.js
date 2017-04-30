@@ -1,4 +1,4 @@
- recipesApp.controller("LoginController", ["$scope", "$location", "$window", "authenticationSvc",function ($scope, $location, $window, authenticationSvc) {
+thindrApp.controller("LoginController", ["$scope", "$location", "$window", "authenticationSvc",function ($scope, $location, $window, authenticationSvc) {
     $scope.userInfo = null;
     $scope.login = function () {
         authenticationSvc.login($scope.userName, $scope.password)

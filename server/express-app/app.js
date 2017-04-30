@@ -5,7 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-	var passport = require('passport');
+	var passport = require
+    ('passport');
+
 var LocalStrategy = require('passport-local').Strategy;
 
 var app = express();
@@ -77,5 +79,33 @@ app.use(function (err, req, res, next) {
 	res.status(err.status || 500);
 	res.render('error');
 });
+
+
+
+/*app.post('/api/login', function(request, response) {
+    var userName = request.body.userName;
+    var password = request.body.password;
+
+    if (userName === "Ruby" && password === "pass123") {
+        var expires = new Date();
+        expires.setDate((new Date()).getDate() + 5);
+        var token = jwt.encode({
+            userName: userName,
+            expires: expires
+        }, app.get('jwtTokenSecret'));
+
+        tokens.push(token);
+
+        response.send(200, { access_token: token, userName: userName });
+    } else {
+        response.send(401, "Invalid credentials");
+    }
+});
+
+app.post('/api/logout', requiresAuthentication, function(request, response) {
+    var token= request.headers.access_token;
+    removeFromTokens(token);
+    response.send(200);
+});*/
 
 module.exports = app;

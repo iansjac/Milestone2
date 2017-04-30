@@ -38,8 +38,6 @@
                             <ul class="nav navbar-nav">
                                 <li class="nav-bar-margin"><a href="FriendsList.html">Friends</a></li>
                                 <li class="nav-bar-margin"><a href="Requests.html">Requests</a></li>
-                                <li class="nav-bar-margin"><a href="Rankings.html">Rankings</a></li>
-                                <li class="nav-bar-margin"><a href="Rewards.html">Rewards</a></li>
                             </ul>
 
                             <!--Search Functionality-->
@@ -79,55 +77,23 @@
             <p style="text-align:center; font-size:30px"><b>My Profile</b></p>
 
             <!--Profile Image-->
-            <img src="images/hoffmanLogo.png" class="img-circle profile-image" alt="Hoffman" style="width:200px; height:200px">
+          
             <br>
 
             <!--Profile Information Form-->
             <form style="padding-left:200px">
-                <b>Name:               &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
-                </b>
-                <input type="text" name="name" value="Mark Hoffman">
+               
+                 <p> Username: {{ user.username }} </p>
+                <p> First name: {{ user.first_name }}</p>
+                <p> Last Name: {{ user.last_name }}</p>
+                <p> Password: {{ user.password }}</p>
+                <p> Phone Number: {{ user.phone_number }}</p>
+                <p> Email: {{ user.email }}</p>
+
                 <br>
                 <br>
 
-                <b>Phone:   &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
-                </b>
-                <input type="tel" name="phone" value="1(800)The-Hoff">
-                <br>
-                <br>
-
-                <b>Email:   &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
-                </b>
-                <input type="email" name="email" value="mark.hoffman@quinnipiac.edu">
-                <br>
-                <br>
-
-                <b>Facebook: 
-                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
-                </b>
-                <input type="text" name="facebook" value="Mark Hoffman">
-                <br>
-                <br>
-
-                <b>Snapchat: 
-                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
-                </b>
-                <input type="text" name="snapchat" value="mhoff">
-                <br>
-                <br>
-
-                <b>I want to: 
-                &#160;&#160;&#160;&#160;
-                </b>
-                <select name="options">
-                    <option value="seller" selected>sell</option>
-                    <option value="buyer">buy</option>
-                </select>
-                &#160;&#160;&#160;&#160;&#160;&#160;
-                <b>$ </b>
-                <input type="number" name="money" value="100">
-                <br>
-                <br>
+                
 
                 <!--Save Changes Button-->&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
                 <a href="HomePage.html">
@@ -139,6 +105,8 @@
             </form>
 
         </div>
+        
+         <p> Username: {{ user.username }}</p>
 
         <!--     <div id="profileBox" class="col-xs-2 black-border">
             <br>
